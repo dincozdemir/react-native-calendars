@@ -10,6 +10,7 @@ import dateutils from '../dateutils';
 import {xdateToData, parseDate} from '../interface';
 import styleConstructor from './style';
 import Day from './day/basic';
+import PriceColoredDay from './day/price-colored';
 import UnitDay from './day/period';
 import MultiDotDay from './day/multi-dot';
 import MultiPeriodDay from './day/multi-period';
@@ -182,6 +183,7 @@ class Calendar extends Component {
           onLongPress={this.longPressDay}
           date={xdateToData(day)}
           marking={this.getDateMarking(day)}
+          price={this.props.price}
         >
           {date}
         </DayComp>
@@ -201,6 +203,8 @@ class Calendar extends Component {
       return MultiDotDay;
     case 'multi-period':
       return MultiPeriodDay;
+    case 'price-colored':
+      return PriceColoredDay;
     case 'custom':
       return SingleDay;
     default:
