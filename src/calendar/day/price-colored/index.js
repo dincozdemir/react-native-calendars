@@ -19,7 +19,8 @@ class PriceColoredDay extends Component {
     marking: PropTypes.any,
     onPress: PropTypes.func,
     onLongPress: PropTypes.func,
-    date: PropTypes.object
+    date: PropTypes.object,
+    price: PropTypes.object,
   };
 
   constructor(props) {
@@ -27,6 +28,7 @@ class PriceColoredDay extends Component {
     this.style = styleConstructor(props.theme);
     this.onDayPress = this.onDayPress.bind(this);
     this.onDayLongPress = this.onDayLongPress.bind(this);
+    this.props.price && console.log('It has price !', this.props.price);
   }
 
   onDayPress() {
@@ -75,6 +77,10 @@ class PriceColoredDay extends Component {
       textStyle.push(this.style.todayText);
     }
 
+    if(!isDisabled && this.props.price){
+      textStyle.push(this.style.textWithPrice);
+    }
+
     return (
       <TouchableOpacity
         style={containerStyle}
@@ -83,10 +89,16 @@ class PriceColoredDay extends Component {
         activeOpacity={marking.activeOpacity}
         disabled={marking.disableTouchEvent}
       >
-      <Text allowFontScaling={false} style={textStyle}>{String(this.props.date.day)}</Text>
-      <Text allowFontScaling={false} style={textStyle}>{String(this.props.price)}</Text>
+        <Text allowFontScaling={false} style={textStyle}>{String(this.props.date.day)}</Text>
+        {!isDisabled && this.props.price && <Text allowFontScaling={false} style={[textStyle, this.style.price, { color: this.props.price.color }]}>{String(this.props.price.price)}</Text>}
       </TouchableOpacity>
     );
+  }
+}
+
+const styles = {
+  priceTextStyle: {
+    fontSize: 10
   }
 }
 

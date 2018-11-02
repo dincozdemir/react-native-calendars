@@ -154,6 +154,10 @@ class Calendar extends Component {
     this.updateMonth(this.state.currentMonth.clone().addMonths(count, true));
   }
 
+  getDayPrice = (day) => {
+    return this.props.dayPriceColorMap[xdateToData(day).dateString];
+  }
+
   renderDay(day, id) {
     const minDate = parseDate(this.props.minDate);
     const maxDate = parseDate(this.props.maxDate);
@@ -183,7 +187,7 @@ class Calendar extends Component {
           onLongPress={this.longPressDay}
           date={xdateToData(day)}
           marking={this.getDateMarking(day)}
-          price={this.props.price}
+          price={this.getDayPrice(day)}
         >
           {date}
         </DayComp>
