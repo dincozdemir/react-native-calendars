@@ -1,4 +1,4 @@
-import {Navigation} from 'react-native-navigation';
+import { Navigation } from 'react-native-navigation';
 
 import MenuScreen from './menu';
 import CalendarsScreen from './calendars';
@@ -11,5 +11,8 @@ export function registerScreens() {
   Navigation.registerComponent('Calendars', () => CalendarsScreen);
   Navigation.registerComponent('Agenda', () => AgendaScreen);
   Navigation.registerComponent('CalendarsList', () => CalendarsList);
-  Navigation.registerComponent('HorizontalCalendarList', () => HorizontalCalendarList);
+  Navigation.registerComponent(
+    'HorizontalCalendarList',
+    () => HorizontalCalendarList
+  );
 }

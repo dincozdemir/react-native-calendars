@@ -1,11 +1,7 @@
-import React, {Component} from 'react';
-import {
-  TouchableOpacity,
-  Text,
-  View
-} from 'react-native';
+import React, { Component } from 'react';
+import { TouchableOpacity, Text, View } from 'react-native';
 import PropTypes from 'prop-types';
-import {shouldUpdate} from '../../../component-updater';
+import { shouldUpdate } from '../../../component-updater';
 
 import styleConstructor from './style';
 
@@ -20,7 +16,7 @@ class PriceColoredDay extends Component {
     onPress: PropTypes.func,
     onLongPress: PropTypes.func,
     date: PropTypes.object,
-    price: PropTypes.object,
+    price: PropTypes.object
   };
 
   constructor(props) {
@@ -28,7 +24,6 @@ class PriceColoredDay extends Component {
     this.style = styleConstructor(props.theme);
     this.onDayPress = this.onDayPress.bind(this);
     this.onDayLongPress = this.onDayLongPress.bind(this);
-    this.props.price && console.log('It has price !', this.props.price);
   }
 
   onDayPress() {
@@ -39,13 +34,27 @@ class PriceColoredDay extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return shouldUpdate(this.props, nextProps, ['state', 'children', 'marking', 'onPress', 'onLongPress']);
+    return shouldUpdate(this.props, nextProps, [
+      'state',
+      'children',
+      'marking',
+      'onPress',
+      'onLongPress'
+    ]);
   }
 
   render() {
     const containerStyle = [this.style.base];
     const textStyle = [this.style.text];
-    const dotStyle = [this.style.dot];
+    const priceTextStyle = [this.style.priceText];
+
+    const { price } = this.props;
+
+    if (!isDisabled && price && price.color) {
+      priceTextStyle.push({
+        color: price.color
+      });
+    }
 
     let marking = this.props.marking || {};
     if (marking && marking.constructor === Array && marking.length) {
@@ -53,32 +62,23 @@ class PriceColoredDay extends Component {
         marking: true
       };
     }
-    const isDisabled = typeof marking.disabled !== 'undefined' ? marking.disabled : this.props.state === 'disabled';
-    let dot;
-    if (marking.marked) {
-      dotStyle.push(this.style.visibleDot);
-      if (marking.dotColor) {
-        dotStyle.push({backgroundColor: marking.dotColor});
-      }
-      dot = (<View style={dotStyle}/>);
-    }
+    const isDisabled =
+      typeof marking.disabled !== 'undefined'
+        ? marking.disabled
+        : this.props.state === 'disabled';
 
     if (marking.selected) {
       containerStyle.push(this.style.selected);
       if (marking.selectedColor) {
-        containerStyle.push({backgroundColor: marking.selectedColor});
+        containerStyle.push({ backgroundColor: marking.selectedColor });
       }
-      dotStyle.push(this.style.selectedDot);
       textStyle.push(this.style.selectedText);
+      priceTextStyle.push(this.style.selectedText);
     } else if (isDisabled) {
       textStyle.push(this.style.disabledText);
     } else if (this.props.state === 'today') {
       containerStyle.push(this.style.today);
       textStyle.push(this.style.todayText);
-    }
-
-    if(!isDisabled && this.props.price){
-      textStyle.push(this.style.textWithPrice);
     }
 
     return (
@@ -89,8 +89,15 @@ class PriceColoredDay extends Component {
         activeOpacity={marking.activeOpacity}
         disabled={marking.disableTouchEvent}
       >
-        <Text allowFontScaling={false} style={textStyle}>{String(this.props.date.day)}</Text>
-        {!isDisabled && this.props.price && <Text allowFontScaling={false} style={[textStyle, this.style.price, { color: this.props.price.color }]}>{String(this.props.price.price)}</Text>}
+        <Text allowFontScaling={false} style={textStyle}>
+          {String(this.props.date.day)}
+        </Text>
+        {!isDisabled &&
+          price && (
+            <Text allowFontScaling={false} style={[textStyle, priceTextStyle]}>
+              {String(price.price)}
+            </Text>
+          )}
       </TouchableOpacity>
     );
   }
@@ -100,6 +107,6 @@ const styles = {
   priceTextStyle: {
     fontSize: 10
   }
-}
+};
 
 export default PriceColoredDay;

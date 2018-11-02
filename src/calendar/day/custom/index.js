@@ -1,12 +1,9 @@
-import React, {Component} from 'react';
-import {
-  TouchableOpacity,
-  Text,
-} from 'react-native';
+import React, { Component } from 'react';
+import { TouchableOpacity, Text } from 'react-native';
 import PropTypes from 'prop-types';
 
 import styleConstructor from './style';
-import {shouldUpdate} from '../../../component-updater';
+import { shouldUpdate } from '../../../component-updater';
 
 class Day extends Component {
   static propTypes = {
@@ -35,7 +32,13 @@ class Day extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return shouldUpdate(this.props, nextProps, ['state', 'children', 'marking', 'onPress', 'onLongPress']);
+    return shouldUpdate(this.props, nextProps, [
+      'state',
+      'children',
+      'marking',
+      'onPress',
+      'onLongPress'
+    ]);
   }
 
   render() {
@@ -48,7 +51,10 @@ class Day extends Component {
         marking: true
       };
     }
-    const isDisabled = typeof marking.disabled !== 'undefined' ? marking.disabled : this.props.state === 'disabled';
+    const isDisabled =
+      typeof marking.disabled !== 'undefined'
+        ? marking.disabled
+        : this.props.state === 'disabled';
 
     if (marking.selected) {
       containerStyle.push(this.style.selected);
@@ -80,7 +86,9 @@ class Day extends Component {
         activeOpacity={marking.activeOpacity}
         disabled={marking.disableTouchEvent}
       >
-        <Text allowFontScaling={false} style={textStyle}>{String(this.props.children)}</Text>
+        <Text allowFontScaling={false} style={textStyle}>
+          {String(this.props.children)}
+        </Text>
       </TouchableOpacity>
     );
   }

@@ -1,5 +1,5 @@
-import {Navigation} from 'react-native-navigation';
-import {registerScreens} from './screens';
+import { Navigation } from 'react-native-navigation';
+import { registerScreens } from './screens';
 registerScreens();
 
 // eslint-disable-next-line no-console
@@ -21,7 +21,7 @@ LocaleConfig.defaultLocale = 'fr';
 Navigation.startSingleScreenApp({
   screen: {
     screen: 'Menu',
-    title: 'WixCal',
+    title: 'WixCal'
   },
   appStyle: {
     navBarBackgroundColor: '#00adf5',

@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
-import {
-  Text,
-  View,
-  StyleSheet
-} from 'react-native';
-import {Agenda} from 'react-native-calendars';
+import { Text, View, StyleSheet } from 'react-native';
+import { Agenda } from 'react-native-calendars';
 
 export default class AgendaScreen extends Component {
   constructor(props) {
@@ -33,8 +29,8 @@ export default class AgendaScreen extends Component {
         //    '2017-05-24': {startingDay: true, color: 'gray'},
         //    '2017-05-25': {color: 'gray'},
         //    '2017-05-26': {endingDay: true, color: 'gray'}}}
-         // monthFormat={'yyyy'}
-         // theme={{calendarBackground: 'red', agendaKnobColor: 'green'}}
+        // monthFormat={'yyyy'}
+        // theme={{calendarBackground: 'red', agendaKnobColor: 'green'}}
         //renderDay={(day, item) => (<Text>{day ? day.day: 'item'}</Text>)}
       />
     );
@@ -58,7 +54,9 @@ export default class AgendaScreen extends Component {
       }
       //console.log(this.state.items);
       const newItems = {};
-      Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
+      Object.keys(this.state.items).forEach(key => {
+        newItems[key] = this.state.items[key];
+      });
       this.setState({
         items: newItems
       });
@@ -68,13 +66,17 @@ export default class AgendaScreen extends Component {
 
   renderItem(item) {
     return (
-      <View style={[styles.item, {height: item.height}]}><Text>{item.name}</Text></View>
+      <View style={[styles.item, { height: item.height }]}>
+        <Text>{item.name}</Text>
+      </View>
     );
   }
 
   renderEmptyDate() {
     return (
-      <View style={styles.emptyDate}><Text>This is empty date!</Text></View>
+      <View style={styles.emptyDate}>
+        <Text>This is empty date!</Text>
+      </View>
     );
   }
 
@@ -99,7 +101,7 @@ const styles = StyleSheet.create({
   },
   emptyDate: {
     height: 15,
-    flex:1,
+    flex: 1,
     paddingTop: 30
   }
 });

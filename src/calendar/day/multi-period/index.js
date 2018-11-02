@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, Text, View } from 'react-native';
 import PropTypes from 'prop-types';
-import {shouldUpdate} from '../../../component-updater';
+import { shouldUpdate } from '../../../component-updater';
 
 import styleConstructor from './style';
 
@@ -14,7 +14,7 @@ class Day extends Component {
     theme: PropTypes.object,
     marking: PropTypes.any,
     onPress: PropTypes.func,
-    date: PropTypes.object,
+    date: PropTypes.object
   };
 
   constructor(props) {
@@ -28,7 +28,13 @@ class Day extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return shouldUpdate(this.props, nextProps, ['state', 'children', 'marking', 'onPress', 'onLongPress']);
+    return shouldUpdate(this.props, nextProps, [
+      'state',
+      'children',
+      'marking',
+      'onPress',
+      'onLongPress'
+    ]);
   }
 
   renderPeriods(marking) {
@@ -44,21 +50,21 @@ class Day extends Component {
         const style = [
           ...baseDotStyle,
           {
-            backgroundColor: period.color,
-          },
+            backgroundColor: period.color
+          }
         ];
         if (period.startingDay) {
           style.push({
             borderTopLeftRadius: 2,
             borderBottomLeftRadius: 2,
-            marginLeft: 4,
+            marginLeft: 4
           });
         }
         if (period.endingDay) {
           style.push({
             borderTopRightRadius: 2,
             borderBottomRightRadius: 2,
-            marginRight: 4,
+            marginRight: 4
           });
         }
         return <View key={index} style={style} />;
@@ -91,7 +97,8 @@ class Day extends Component {
       <View
         style={{
           alignSelf: 'stretch'
-        }}>
+        }}
+      >
         <TouchableOpacity style={containerStyle} onPress={this.onDayPress}>
           <Text allowFontScaling={false} style={textStyle}>
             {String(this.props.children)}
@@ -99,8 +106,9 @@ class Day extends Component {
         </TouchableOpacity>
         <View
           style={{
-            alignSelf: 'stretch',
-          }}>
+            alignSelf: 'stretch'
+          }}
+        >
           {periods}
         </View>
       </View>

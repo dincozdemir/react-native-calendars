@@ -21,7 +21,7 @@ describe('calendar interface', () => {
     });
 
     it('should expect object with UTC timestamp as argument', () => {
-      const date = iface.parseDate({timestamp: 1479832134398});
+      const date = iface.parseDate({ timestamp: 1479832134398 });
       expect(date.getTime()).toEqual(1479832134398);
       expect(date.getTimezoneOffset()).toEqual(0);
     });
@@ -54,7 +54,7 @@ describe('calendar interface', () => {
     it('should convert xdate to data', () => {
       const time = 1479772800000;
       const testDate = XDate(time, true);
-      expect((testDate).toISOString()).toEqual('2016-11-22T00:00:00Z');
+      expect(testDate.toISOString()).toEqual('2016-11-22T00:00:00Z');
       const data = iface.xdateToData(testDate);
       expect(data).toEqual({
         year: 2016,
