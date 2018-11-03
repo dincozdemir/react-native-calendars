@@ -8,7 +8,6 @@ module.exports = {
     it: true,
     describe: true
   },
-  extends: 'eslint:recommended',
   parser: 'babel-eslint',
   parserOptions: {
     ecmaFeatures: {
@@ -17,14 +16,9 @@ module.exports = {
     },
     sourceType: 'module'
   },
-  plugins: ['react'],
+  plugins: ['react', 'prettier'],
   rules: {
-    'no-unused-vars': 2,
-    'react/jsx-uses-vars': 2,
-    'react/jsx-uses-react': 2,
-    indent: ['error', 2],
-    'linebreak-style': ['error', 'unix'],
-    quotes: ['error', 'single'],
-    semi: ['error', 'always']
-  }
+    'prettier/prettier': ['error']
+  },
+  extends: ['prettier', 'prettier/react']
 };
