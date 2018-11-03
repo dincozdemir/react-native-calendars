@@ -1,18 +1,17 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { View, ViewPropTypes } from 'react-native';
-import PropTypes from 'prop-types';
-
 import XDate from 'xdate';
 import dateutils from '../dateutils';
-import { xdateToData, parseDate } from '../interface';
-import styleConstructor from './style';
+import { parseDate, xdateToData } from '../interface';
 import Day from './day/basic';
-import PriceColoredDay from './day/price-colored';
-import UnitDay from './day/period';
+import SingleDay from './day/custom';
 import MultiDotDay from './day/multi-dot';
 import MultiPeriodDay from './day/multi-period';
-import SingleDay from './day/custom';
+import UnitDay from './day/period';
+import PriceColoredDay from './day/price-colored';
 import CalendarHeader from './header';
+import styleConstructor from './style';
 import shouldComponentUpdate from './updater';
 
 //Fallback when RN version is < 0.44
@@ -169,8 +168,8 @@ class Calendar extends Component {
   }
 
   getDayPrice = day => {
-    if (this.props.dayPriceColorMap)
-      return this.props.dayPriceColorMap[xdateToData(day).dateString];
+    const { dayPriceColorMap = [] } = this.props;
+    return dayPriceColorMap[xdateToData(day).dateString] || {};
   };
 
   renderDay(day, id) {
@@ -199,6 +198,7 @@ class Calendar extends Component {
 
     const DayComp = this.getDayComponent();
     const date = day.getDate();
+    const { price, color } = this.getDayPrice(day);
     return (
       <View style={{ flex: 1, alignItems: 'center' }} key={id}>
         <DayComp
@@ -208,7 +208,8 @@ class Calendar extends Component {
           onLongPress={this.longPressDay}
           date={xdateToData(day)}
           marking={this.getDateMarking(day)}
-          price={this.getDayPrice(day)}
+          price={price}
+          color={color}
         >
           {date}
         </DayComp>

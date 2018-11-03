@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import { TouchableOpacity, Text, View } from 'react-native';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Text, TouchableOpacity } from 'react-native';
 import { shouldUpdate } from '../../../component-updater';
-
 import styleConstructor from './style';
 
 class PriceColoredDay extends Component {
@@ -16,7 +15,8 @@ class PriceColoredDay extends Component {
     onPress: PropTypes.func,
     onLongPress: PropTypes.func,
     date: PropTypes.object,
-    price: PropTypes.object
+    price: PropTypes.string,
+    color: PropTypes.string
   };
 
   constructor(props) {
@@ -39,7 +39,9 @@ class PriceColoredDay extends Component {
       'children',
       'marking',
       'onPress',
-      'onLongPress'
+      'onLongPress',
+      'price',
+      'color'
     ]);
   }
 
@@ -48,11 +50,11 @@ class PriceColoredDay extends Component {
     const textStyle = [this.style.text];
     const priceTextStyle = [this.style.priceText];
 
-    const { price } = this.props;
+    const { price, color } = this.props;
 
-    if (!isDisabled && price && price.color) {
+    if (!isDisabled && color) {
       priceTextStyle.push({
-        color: price.color
+        color
       });
     }
 
@@ -95,18 +97,12 @@ class PriceColoredDay extends Component {
         {!isDisabled &&
           price && (
             <Text allowFontScaling={false} style={[textStyle, priceTextStyle]}>
-              {String(price.price)}
+              {String(price)}
             </Text>
           )}
       </TouchableOpacity>
     );
   }
 }
-
-const styles = {
-  priceTextStyle: {
-    fontSize: 10
-  }
-};
 
 export default PriceColoredDay;
