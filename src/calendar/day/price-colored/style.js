@@ -1,14 +1,18 @@
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import * as defaultStyle from '../../../style';
 
 const STYLESHEET_ID = 'stylesheet.day.basic';
 
 export default function styleConstructor(theme = {}) {
   const appStyle = { ...defaultStyle, ...theme };
+  const size = (Dimensions.get('window').width - 30) / 7;
+  const halfSize = size / 2;
+  const backBlockHeight = 34;
+  const backBlockColor = '#eeeeee';
   return StyleSheet.create({
     base: {
-      width: 42,
-      height: 42,
+      width: size,
+      height: size,
       alignItems: 'center',
       justifyContent: 'center'
     },
@@ -26,7 +30,33 @@ export default function styleConstructor(theme = {}) {
     alignedText: {},
     selected: {
       backgroundColor: appStyle.selectedDayBackgroundColor,
-      borderRadius: 21
+      borderRadius: halfSize,
+      width: 40,
+      height: 40,
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'absolute'
+    },
+    leftBlock: {
+      width: halfSize,
+      height: backBlockHeight,
+      position: 'absolute',
+      left: 0,
+      backgroundColor: backBlockColor
+    },
+    rightBlock: {
+      width: halfSize,
+      height: backBlockHeight,
+      position: 'absolute',
+      right: 0,
+      backgroundColor: backBlockColor
+    },
+    fullBlock: {
+      width: size,
+      height: backBlockHeight,
+      position: 'absolute',
+      right: 0,
+      backgroundColor: backBlockColor
     },
     today: {
       backgroundColor: appStyle.todayBackgroundColor

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { shouldUpdate } from '../../../component-updater';
 import styleConstructor from './style';
 
@@ -69,11 +69,11 @@ class PriceColoredDay extends Component {
         ? marking.disabled
         : this.props.state === 'disabled';
 
+    const selectedContainer = marking.selected
+      ? [this.style.selected]
+      : containerStyle;
+
     if (marking.selected) {
-      containerStyle.push(this.style.selected);
-      if (marking.selectedColor) {
-        containerStyle.push({ backgroundColor: marking.selectedColor });
-      }
       textStyle.push(this.style.selectedText);
       priceTextStyle.push(this.style.selectedText);
     } else if (isDisabled) {
@@ -84,23 +84,31 @@ class PriceColoredDay extends Component {
     }
 
     return (
-      <TouchableOpacity
-        style={containerStyle}
-        onPress={this.onDayPress}
-        onLongPress={this.onDayLongPress}
-        activeOpacity={marking.activeOpacity}
-        disabled={marking.disableTouchEvent}
-      >
-        <Text allowFontScaling={false} style={textStyle}>
-          {String(this.props.date.day)}
-        </Text>
-        {!isDisabled &&
-          price && (
-            <Text allowFontScaling={false} style={[textStyle, priceTextStyle]}>
-              {String(price)}
-            </Text>
-          )}
-      </TouchableOpacity>
+      <View style={containerStyle}>
+        {marking.betweenDate && <View style={this.style.fullBlock} />}
+        {marking.startingDay && <View style={this.style.rightBlock} />}
+        {marking.endingDay && <View style={this.style.leftBlock} />}
+        <TouchableOpacity
+          style={selectedContainer}
+          onPress={this.onDayPress}
+          onLongPress={this.onDayLongPress}
+          activeOpacity={marking.activeOpacity}
+          disabled={marking.disableTouchEvent}
+        >
+          <Text allowFontScaling={false} style={textStyle}>
+            {String(this.props.date.day)}
+          </Text>
+          {!isDisabled &&
+            price && (
+              <Text
+                allowFontScaling={false}
+                style={[textStyle, priceTextStyle]}
+              >
+                {String(price)}
+              </Text>
+            )}
+        </TouchableOpacity>
+      </View>
     );
   }
 }
