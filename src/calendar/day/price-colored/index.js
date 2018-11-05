@@ -85,7 +85,7 @@ class PriceColoredDay extends Component {
 
     return (
       <View style={containerStyle}>
-        {marking.betweenDate && <View style={this.style.fullBlock} />}
+        {marking.betweenDay && <View style={this.style.fullBlock} />}
         {marking.startingDay && <View style={this.style.rightBlock} />}
         {marking.endingDay && <View style={this.style.leftBlock} />}
         <TouchableOpacity
