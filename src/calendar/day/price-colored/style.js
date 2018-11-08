@@ -8,7 +8,7 @@ export default function styleConstructor(theme = {}) {
   const size = (Dimensions.get('window').width - 30) / 7;
   const halfSize = size / 2;
   const backBlockHeight = 34;
-  const backBlockColor = '#eeeeee';
+  const backBlockColor = '#f1f2f6';
   return StyleSheet.create({
     base: {
       width: size,
