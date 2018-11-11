@@ -41,7 +41,7 @@ class PriceColoredDay extends Component {
       'onPress',
       'onLongPress',
       'price',
-      'color'
+      'colors'
     ]);
   }
 
